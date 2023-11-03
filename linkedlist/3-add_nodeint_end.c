@@ -7,19 +7,19 @@
  * @n: the data that the new node holds
  * Return: the address of the new element, or NULL if it failed
 */
-listint_t *add_nodeint_end(listint_t **h, const int n)
+listint_t *add_nodeint_end(listint_t **head, const int n)
 {
 	listint_t *new_node = malloc(sizeof(listint_t));
-	listint_t *current = (*h);
+	listint_t *current = (*head);
 
-	if (!new_node || !h)
+	if (!new_node || !head)
 		return (NULL);
 
 	new_node->n = n;
 
 
 	if (!current)
-		*h = new_node;
+		*head = new_node;
 	else
 	{
 		while (current->next)

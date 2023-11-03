@@ -3,9 +3,9 @@
  * free_listint - function that frees a listint_t list.
  * @head: the head pointer of the list
 */
-void free_listint(listint_t **head)
+void free_listint(listint_t *head)
 {
-	listint_t *temp = *head;
+	listint_t *temp = head;
 
 	while (temp)
 	{
@@ -14,4 +14,3 @@ void free_listint(listint_t **head)
 		head = temp;
 	}
 }
-
