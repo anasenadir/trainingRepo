@@ -1,3 +1,4 @@
+#include "main.h"
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
@@ -19,18 +20,4 @@ char *_getenv(const char *name)
 		i++;
 	}
 	return ("");
-}
-int main(int argc, char **argv)
-{
-	char *value;
-
-	if (argc != 2)
-	{
-		printf("Arguments Error\n");
-		exit(EXIT_FAILURE);
-	}
-	value = _getenv(argv[1]);
-
-	printf("the value of %s is \n", argv[1]);
-	printf("%s\n", value);
 }
