@@ -1,20 +1,5 @@
 #include "main.h"
-#include <string.h>
-#include <stdlib.h>
-#include <stdio.h>
 
-
-int _strlen(char *str)
-{
-	int len = 0;
-
-	if (!str || str == "")
-		return (0);
-
-	while (str[len] != '\0')
-		len++;
-	return (len);
-}
 linked_paths * generate_linked_paths_list(void)
 {
 	char *PATH = getenv("PATH");
