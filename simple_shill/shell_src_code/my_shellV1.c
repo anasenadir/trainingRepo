@@ -6,7 +6,7 @@ int main(void)
 	size_t length = 0;
 	ssize_t nread;
 	pid_t child_pid;
-	
+	int index = 0;
 	linked_paths *paths_head = generate_linked_paths_list();
 
 	while (1)
@@ -20,6 +20,7 @@ int main(void)
 		
 		if (strcmp(line, "exit\n") == 0)
 		{
+			freeLinkedList(*paths_head);
 			printf("Goodbay\n");
 			break;
 		}
@@ -29,30 +30,26 @@ int main(void)
 		child_pid = fork();
 		
 		if (child_pid == -1)
-			perror("fork"), exit(EXIT_FAILURE);
+		{
+			free2DArrays(command);
+			freeLinkedList(paths_head);
+			
+			perror("fork");
+			exit(EXIT_FAILURE);
+		}
 
 		if (child_pid == 0)
 		{
-			while (paths_head)
-            		{
-                		char executable_path[MAX_BUF_SIZE];
-                		snprintf(executable_path, sizeof(executable_path), "%s/%s", paths_head->data, command[0]);
-                		if (execve(executable_path, command, NULL) == -1)
-                		{
-                    			perror("ERROR::");
-                    			exit(EXIT_FAILURE);
-                		}
-                		paths_head = paths_head->next;
-            		}
-            		// Command not found, exit with an error status
-            		exit(EXIT_FAILURE);
+			execute(command, paths_head, index);
 		}
 		else
 		{
 			wait(NULL);
 		}
-		free(command);
-
+		
+		free2DArrays(command);
+		freeLinkedList(paths_head);
+		index++;
 	}
 	free(line);
 	return (EXIT_SUCCESS); 

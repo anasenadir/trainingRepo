@@ -13,6 +13,7 @@ linked_paths * generate_linked_paths_list(void)
 	if (!head)
 	{
 		fprintf(stderr, "memory allocation failed (head)");
+		exit(EXIT_FAILURE);
 	}
 
 	head->data = malloc(sizeof(char) * _strlen(data) + 1);
@@ -34,17 +35,17 @@ linked_paths * generate_linked_paths_list(void)
 		if (!new_node)
 		{
 			fprintf(stderr, "memory allocation failed (new_node)");
-			free(head);
+			freeLinkedList(head);
 			exit(EXIT_FAILURE);
 		}
 		
-		new_node->data = malloc(sizeof(char) * _strlen(data));
+		new_node->data = malloc(sizeof(char) * _strlen(data) + 1);
 
 		if (!new_node->data)
 		{
 			fprintf(stdout, "memory allocation failed (new_node->data)");
 			free(new_node);
-			free(head);
+			freeLinkedList(head);
 			exit(EXIT_FAILURE);
 		}
 		strcpy(new_node->data, data);
@@ -52,5 +53,6 @@ linked_paths * generate_linked_paths_list(void)
 		prev_node->next = new_node;
 		prev_node = new_node;
 	}
+	
 	return (head);
 }
